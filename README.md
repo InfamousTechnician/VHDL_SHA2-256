@@ -1,2 +1,4 @@
 # VHDL_SHA2-256
-VHDL SHA2 cores
+- Single chunk core: a not so general VHDL SHA-2 core with 256 bits hash. Medium footprint. Digests only a single chunk of data ie. 512 bits, meaning the algorithms feedback of loading the input of the digestion with the output of the previous chunk is not implemented. The reason behind this is Bitcoin doesn't really need it and it is faster a bit this way.
+- Pipe element core: it is the pipelined description of the digestion function and the non linear shift register which both are capable of having 3 pipe stages. In the picture added - original from Wikipedia - the placement of D-flip-flops is being derived. Adding 64 stages of this core consecutively results in a 192 layer pipeline digesting 512 bit chunnks.
+- In the future both designs' compression function needs to able to be initialized with custom values so that they can finish the calculation a Bitcoin block, of which only the last 512 bits are changing rapidly. (Meaning a kind of calculation like a length extension attack against a plain SHA2-256.)
